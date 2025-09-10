@@ -1,0 +1,146 @@
+package com.CDC.app;
+
+//imports
+import com.CDC.model.Cachorro;
+import com.CDC.model.Dono;
+import com.CDC.repository.CachorroRepository;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) //String[] → significa que o método recebe um array de Strings como parâmetro.
+    {
+        // criar repositório
+        CachorroRepository repositorio = new CachorroRepository();
+
+        // criar scanner para receber input do usuário
+        Scanner scanner = new Scanner(System.in);
+
+        // aqui vamos colocar o menu e as opções
+        boolean sair = false;
+
+        // precisa estar DENTRO do main
+        while (!sair) { 
+            //! - operador de negação; sair - é um boolean; enquanto não sairmos da aplicação ela vai continuar rodando
+
+            System.out.println("\n--- MENU ---");
+            System.out.println("1 - Cadastrar cachorro");
+            System.out.println("2 - Listar cachorros");
+            System.out.println("3 - Buscar cachorro por nome");
+            System.out.println("4 - Atualizar cachorro");
+            System.out.println("5 - Remover cachorro");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // limpar buffer
+
+            //cadastro do cachorro
+            if (opcao == 1) {
+                System.out.print("Nome do cachorro: ");
+                String nomeC = scanner.nextLine();
+                
+
+                System.out.print("Idade: ");
+                int idade = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.print("Raça: ");
+                String raca = scanner.nextLine();
+
+                System.out.print("Cachorro vacinado? (true/false): ");
+                boolean vacinado = scanner.nextBoolean();
+                scanner.nextLine();
+
+                System.out.print("Nome do dono: ");
+                String nomeDono = scanner.nextLine();
+                System.out.print("Telefone do dono: ");
+                String telefone = scanner.nextLine();
+                System.out.print("Endereço do dono: ");
+                String endereco = scanner.nextLine();
+
+                Dono dono = new Dono(nomeDono, telefone, endereco);
+                Cachorro cachorro = new Cachorro(nomeC, idade, raca, vacinado, dono);
+                repositorio.salvar(cachorro);
+
+                System.out.println("Cachorro cadastrado com sucesso!");
+            }
+
+            //listar os cachorros
+            else if (opcao == 2) {
+                System.out.println("\n--- Lista de Cachorros ---");
+                for (Cachorro c : repositorio.listar()) {
+                    System.out.println(c);
+                }
+            }
+
+            //buscar pelo nome
+            else if (opcao == 3) {
+                System.out.print("Digite o nome do cachorro: ");
+                String nomeBusca = scanner.nextLine();
+                Cachorro c = repositorio.buscarPorNome(nomeBusca);
+                if (c != null) {
+                    System.out.println("Cachorro encontrado: " + c);
+                } else {
+                    System.out.println("Cachorro não encontrado.");
+                }
+            }
+
+            //atualizar cachorro
+            else if (opcao == 4) {
+                System.out.print("Digite o nome do cachorro que deseja atualizar: ");
+                String nomeAntigo = scanner.nextLine();
+
+                System.out.print("Novo nome: ");
+                String novoNome = scanner.nextLine();
+
+                System.out.print("Nova idade: ");
+                int novaIdade = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.print("Nova raça: ");
+                String novaRaca = scanner.nextLine();
+
+                System.out.print("Cachorro vacinado? (true/false): ");
+                boolean vacinado = scanner.nextBoolean();
+                scanner.nextLine();
+
+                System.out.print("Nome do dono: ");
+                String nomeDono = scanner.nextLine();
+                System.out.print("Telefone do dono: ");
+                String telefone = scanner.nextLine();
+                System.out.print("Endereço do dono: ");
+                String endereco = scanner.nextLine();
+
+                Dono novoDono = new Dono(nomeDono, telefone, endereco);
+                Cachorro novoCachorro = new Cachorro(novoNome, novaIdade, novaRaca, vacinado, novoDono);
+
+                boolean atualizado = repositorio.atualizar(nomeAntigo, novoCachorro);
+                if (atualizado) {
+                    System.out.println("Cachorro atualizado com sucesso!");
+                } else {
+                    System.out.println("Cachorro não encontrado.");
+                }
+            }
+
+            //remover cachorro
+            else if (opcao == 5) {
+                System.out.print("Digite o nome do cachorro que deseja remover: ");
+                String nomeRemover = scanner.nextLine();
+                boolean removido = repositorio.remover(nomeRemover);
+                if (removido) {
+                    System.out.println("Cachorro removido com sucesso!");
+                } else {
+                    System.out.println("Cachorro não encontrado.");
+                }
+            }
+
+            // sair da aplicação
+            else if (opcao == 0) {
+                sair = true; // aqui tem que ser a variável já existente, não criar outra
+                System.out.println("Saindo...");
+            }
+        }
+        scanner.close();
+    }
+}
