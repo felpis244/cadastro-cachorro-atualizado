@@ -14,11 +14,12 @@ public class Validacoes {
     }
 
     public static boolean validarIdade(int idade) {
-        return idade > 0;
+        return idade > 0 && idade <= 18;
     }
 
     public static boolean verificarListaVazia(int tamanhoLista) {
         return tamanhoLista > 0;
     }
 }
+
 
