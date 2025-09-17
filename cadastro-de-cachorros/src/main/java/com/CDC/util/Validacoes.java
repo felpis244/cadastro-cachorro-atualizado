@@ -21,26 +21,29 @@ public class Validacoes {
         return tamanhoLista > 0;
     }
 
-    public static int validarOpcaoMenu(Scanner scanner, int min, int max) {
+   public static int validarOpcaoMenu(Scanner scanner, int min, int max) {
         int opcao;
         while (true) {
             String entrada = scanner.nextLine().trim();
 
             if (!entrada.matches("\\d+")) {
-                continue; // ignora se não for número
+                System.out.println("Inválido, digite os números de " + min + " a " + max + " para acessar nosso menu.");
+                continue;
             }
 
             opcao = Integer.parseInt(entrada);
 
             if (opcao < min || opcao > max) {
-                continue; // ignora se for fora do intervalo
+                System.out.println("Inválido, digite os números de " + min + " a " + max + " para acessar nosso menu.");
+                continue;
             }
 
-            return opcao; // retorna apenas se for válido
+            return opcao; // só retorna se for válido
         }
     }
 
 }
+
 
 
 
