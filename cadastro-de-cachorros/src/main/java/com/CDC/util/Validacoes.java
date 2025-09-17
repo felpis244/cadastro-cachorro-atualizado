@@ -21,28 +21,8 @@ public class Validacoes {
         return tamanhoLista > 0;
     }
 
-   public static int validarOpcaoMenu(Scanner scanner, int min, int max) {
-        int opcao;
-        while (true) {
-            String entrada = scanner.nextLine().trim();
-
-            if (!entrada.matches("\\d+")) {
-                System.out.println("Inválido, digite os números de " + min + " a " + max + " para acessar nosso menu.");
-                continue;
-            }
-
-            opcao = Integer.parseInt(entrada);
-
-            if (opcao < min || opcao > max) {
-                System.out.println("Inválido, digite os números de " + min + " a " + max + " para acessar nosso menu.");
-                continue;
-            }
-
-            return opcao; // só retorna se for válido
-        }
-    }
-
 }
+
 
 
 
