@@ -28,7 +28,7 @@ public class Main {
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
-            int opcao = Validacoes.validarOpcaoMenu(scanner, 0, 5);
+            int opcao = scanner.nextInt();
             scanner.nextLine(); // limpar buffer do scanner
 
             // ---------------------- CADASTRO ----------------------
@@ -227,5 +227,6 @@ public class Main {
         scanner.close(); // fecha o scanner ao sair
     }
 }
+
 
 
