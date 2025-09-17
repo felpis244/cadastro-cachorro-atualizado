@@ -20,6 +20,28 @@ public class Validacoes {
     public static boolean verificarListaVazia(int tamanhoLista) {
         return tamanhoLista > 0;
     }
+
+    public static int validarOpcaoMenu(Scanner scanner, int min, int max) {
+        int opcao;
+        while (true) {
+            String entrada = scanner.nextLine().trim();
+
+            if (!entrada.matches("\\d+")) {
+                continue; // ignora se não for número
+            }
+
+            opcao = Integer.parseInt(entrada);
+
+            if (opcao < min || opcao > max) {
+                continue; // ignora se for fora do intervalo
+            }
+
+            return opcao; // retorna apenas se for válido
+        }
+    }
+
 }
+
+
 
 
